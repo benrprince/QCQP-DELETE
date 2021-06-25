@@ -86,6 +86,15 @@ with nocounter
 Select into "nl:"
 from control_lot cl
 where cl.control_id = $Control
+if (curqual != 1)
+	set error_code = 2
+	set error_message = "More than 1 lot associated"
+	go to exit_script
+endif
+
+Select into "nl:"
+from control_lot cl
+where cl.control_id = $Control
 detail
 	lotID = cl.LOT_ID
 with nocounter
